@@ -1,9 +1,64 @@
 import React from 'react';
 
-// import { Container } from './styles';
+import Button from '../Button';
+import {
+  Container,
+  FormContainer,
+  FormGroup,
+  Label,
+  Input,
+  TextArea,
+} from './styled';
 
 const Form: React.FC = () => {
-  return <div>Form</div>;
+  return (
+    <Container>
+      <FormContainer>
+        <FormGroup>
+          <Label>Your name</Label>
+          <Input />
+        </FormGroup>
+        <FormGroup>
+          <Label>Your bio</Label>
+          <TextArea name="message" rows={8} />
+        </FormGroup>
+        <FormGroup>
+          <Label>Primary skill</Label>
+          <select name="select">
+            <option value="valor1">Valor 1</option>
+            <option value="valor2" selected>
+              Valor 2
+            </option>
+            <option value="valor3">Valor 3</option>
+          </select>
+        </FormGroup>
+        <FormGroup>
+          <Label>Your best javascript lib</Label>
+          <Input type="radio" />
+          <span>React</span>
+          <Input type="radio" />
+          <span>Vue</span>
+          <Input type="radio" />
+          <span>Svelte</span>
+        </FormGroup>
+        <FormGroup>
+          <Label>Addicional skill ++</Label>
+          <Input type="checkbox" />
+          <span>TDD</span>
+          <Input type="checkbox" />
+          <span>Storybook</span>
+          <Input type="checkbox" />
+          <span>Github</span>
+        </FormGroup>
+        <FormGroup>
+          <Label> Start Date</Label>
+          Datepicker
+        </FormGroup>
+      </FormContainer>
+
+      <Button>Submit</Button>
+    </Container>
+  );
 };
 
 export default Form;

@@ -1,9 +1,13 @@
 import React from 'react';
 
-// import { Container } from './styles';
+import { Container } from './styled';
 
 const InfoBanner: React.FC = () => {
-  return <div> Banner </div>;
+  return (
+    <Container>
+      Build <strong>your Form</strong> here
+    </Container>
+  );
 };
 
 export default InfoBanner;
