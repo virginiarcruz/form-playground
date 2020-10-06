@@ -1,4 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
+import DayPicker from 'react-day-picker';
+import DayPickerInput from 'react-day-picker/DayPickerInput';
+
+import 'react-day-picker/lib/style.css';
 
 import Button from '../Button';
 import {
@@ -52,7 +56,13 @@ const Form: React.FC = () => {
         </FormGroup>
         <FormGroup>
           <Label> Start Date</Label>
-          Datepicker
+          <DayPickerInput
+            dayPickerProps={{
+              month: new Date(),
+              showWeekNumbers: true,
+              todayButton: 'Today',
+            }}
+          />
         </FormGroup>
       </FormContainer>
 
