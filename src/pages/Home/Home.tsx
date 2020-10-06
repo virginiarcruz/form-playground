@@ -1,16 +1,15 @@
-import React from 'react';
-import { useQuery } from "@apollo/react-hooks";
-import { gql } from "@apollo/client"
+import React, { useEffect } from 'react';
+import { gql, useQuery } from '@apollo/client';
 
 import InfoBanner from '../../components/InfoBanner';
 import Form from '../../components/Form';
 
 import { Container, Title } from './styled';
 
-
-export interface CommentsList {
-  error?: string,
-  loading?: string,
+interface CommentsProps {
+  id?: number;
+  name?: string;
+  content?: string;
 }
 
 const GET_COMMENTS = gql`
@@ -22,21 +21,37 @@ const GET_COMMENTS = gql`
   }
 `;
 
-const Home: React.FC<CommentsList> = () => {
-  const { loading, error, data, refetch } = useQuery<CommentsList>(GET_COMMENTS);
+const Home: React.FC<CommentsProps> = () => {
+  const { loading, error, data } = useQuery(GET_COMMENTS);
 
-  // if (error) return frase
-  if (loading) return 'Loading...';
-  if (error) return `Errooooooooor!`;
+  if (error) return <>errou</>;
 
-  console.log('getcomments', GET_COMMENTS)
-  console.log('data', data)
+  /* eslint-disable */
+
+  console.log('data', data);
+  console.log('getcomments', GET_COMMENTS);
 
   return (
     <>
       <Title> Form Playground </Title>
       <Container>
-        <InfoBanner />
+        <InfoBanner>
+          {loading ? (
+            'Loading...'
+          ) : (
+            <section>
+              {data.comments.map(({ name, content }: CommentsProps) => {
+                <>
+                  <span>Comments aqui</span>
+                  <p>
+                    {name} {content}
+                  </p>
+                </>;
+              })}
+            </section>
+            /* eslint-enable */
+          )}
+        </InfoBanner>
         <Form />
       </Container>
     </>

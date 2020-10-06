@@ -2,10 +2,13 @@ import React from 'react';
 
 import { Container } from './styled';
 
-const InfoBanner: React.FC = () => {
+const InfoBanner: React.FC = ({ children }) => {
   return (
     <Container>
-      Build <strong>your Form</strong> here
+      <section>
+        Build <strong>your Form</strong> here
+      </section>
+      {children}
     </Container>
   );
 };
