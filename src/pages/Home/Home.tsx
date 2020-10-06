@@ -17,6 +17,7 @@ const GET_COMMENTS = gql`
     comments {
       id
       name
+      content
     }
   }
 `;
@@ -24,11 +25,17 @@ const GET_COMMENTS = gql`
 const Home: React.FC<CommentsProps> = () => {
   const { loading, error, data } = useQuery(GET_COMMENTS);
 
-  if (error) return <>errou</>;
+  if (error) return <>Algo deu errado aqui!</>;
+
+
 
   /* eslint-disable */
 
-  console.log('data', data);
+  // const allComments = data.comments.map((comment: Object) => {
+  //   return comment
+  // })
+
+  console.log('data & loading', data, loading);
   console.log('getcomments', GET_COMMENTS);
 
   return (
@@ -36,21 +43,20 @@ const Home: React.FC<CommentsProps> = () => {
       <Title> Form Playground </Title>
       <Container>
         <InfoBanner>
-          {loading ? (
-            'Loading...'
-          ) : (
-            <section>
-              {data.comments.map(({ name, content }: CommentsProps) => {
-                <>
-                  <span>Comments aqui</span>
-                  <p>
-                    {name} {content}
-                  </p>
-                </>;
-              })}
-            </section>
-            /* eslint-enable */
-          )}
+          { loading
+            ? 'Loading...'
+            : data && data.comments.map(({ id, name, content }: CommentsProps) => {
+                return (
+                  <ul>
+                    <li key={id}>
+                    {name}
+                    {content}
+                    </li>
+                  </ul>
+                )
+              })
+/* eslint-enable */
+          }
         </InfoBanner>
         <Form />
       </Container>
