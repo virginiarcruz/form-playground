@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
-import { gql, useQuery } from '@apollo/client';
+import React from 'react';
+import { useQuery, useMutation } from '@apollo/client';
 
 import InfoBanner from '../../components/InfoBanner';
 import Form from '../../components/Form';
+import { GET_COMMENTS } from '../../graphql';
 
 import { Container, Title } from './styled';
 
@@ -12,28 +13,12 @@ interface CommentsProps {
   content?: string;
 }
 
-const GET_COMMENTS = gql`
-  query {
-    comments {
-      id
-      name
-      content
-    }
-  }
-`;
-
 const Home: React.FC<CommentsProps> = () => {
   const { loading, error, data } = useQuery(GET_COMMENTS);
 
   if (error) return <>Algo deu errado aqui!</>;
 
-
-
   /* eslint-disable */
-
-  // const allComments = data.comments.map((comment: Object) => {
-  //   return comment
-  // })
 
   console.log('data & loading', data, loading);
   console.log('getcomments', GET_COMMENTS);
@@ -43,19 +28,21 @@ const Home: React.FC<CommentsProps> = () => {
       <Title> Form Playground </Title>
       <Container>
         <InfoBanner>
-          { loading
-            ? 'Loading...'
-            : data && data.comments.map(({ id, name, content }: CommentsProps) => {
-                return (
-                  <ul>
-                    <li key={id}>
-                    {name}
-                    {content}
-                    </li>
-                  </ul>
-                )
-              })
-/* eslint-enable */
+          {
+            loading
+              ? 'Loading...'
+              : data &&
+                data.comments.map(({ id, name, content }: CommentsProps) => {
+                  return (
+                    <ul>
+                      <li key={id}>
+                        {name}
+                        {content}
+                      </li>
+                    </ul>
+                  );
+                })
+            /* eslint-enable */
           }
         </InfoBanner>
         <Form />

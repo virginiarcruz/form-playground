@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, InputHTMLAttributes, useCallback } from 'react';
+import { useMutation } from '@apollo/client';
+import { SAVE_COMMENT } from '../../graphql';
 import DayPicker from 'react-day-picker';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 
@@ -15,18 +17,48 @@ import {
 } from './styled';
 
 const Form: React.FC = () => {
+  const [name, setName] = useState<string>('');
+  const [content, setContent] = useState<string>('');
+
+  const [saveComment] = useMutation(SAVE_COMMENT, {
+    variables: {
+      input: {
+        name,
+        content,
+      },
+    },
+  });
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    await saveComment();
+    setName('');
+    setContent('');
+  }
+
   return (
     <Container>
-      <FormContainer>
+      <FormContainer onSubmit={handleSubmit}>
         <FormGroup>
           <Label>Your name</Label>
-          <Input />
+          <Input
+            placeholder="enter your name"
+            value={name}
+            required
+            onChange={(event) => setName(event.target.value)}
+          />
         </FormGroup>
         <FormGroup>
           <Label>Your bio</Label>
-          <TextArea name="message" rows={8} />
+          <TextArea
+            name="message"
+            value={content}
+            rows={8}
+            required
+            onChange={(event) => setContent(event.target.value)}
+          />
         </FormGroup>
-        <FormGroup>
+        {/* <FormGroup>
           <Label>Primary skill</Label>
           <select name="select">
             <option value="valor1">Valor 1</option>
@@ -63,10 +95,9 @@ const Form: React.FC = () => {
               todayButton: 'Today',
             }}
           />
-        </FormGroup>
+        </FormGroup> */}
+        <Button>Submit</Button>
       </FormContainer>
-
-      <Button>Submit</Button>
     </Container>
   );
 };
