@@ -14,7 +14,7 @@ interface CommentsProps {
 }
 
 const Home: React.FC<CommentsProps> = () => {
-  const { loading, error, data } = useQuery(GET_COMMENTS);
+  const { loading, error, data, refetch } = useQuery(GET_COMMENTS);
 
   if (error) return <>Algo deu errado aqui!</>;
 
@@ -22,6 +22,10 @@ const Home: React.FC<CommentsProps> = () => {
 
   console.log('data & loading', data, loading);
   console.log('getcomments', GET_COMMENTS);
+
+  const handleAddComment = () => {
+    refetch();
+  };
 
   return (
     <>

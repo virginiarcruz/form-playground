@@ -2,9 +2,9 @@ import React from 'react';
 
 import { Container } from './styled';
 
-const InfoBanner: React.FC = ({ children }) => {
+const InfoBanner: React.FC = ({ children, ...rest }) => {
   return (
-    <Container>
+    <Container {...rest}>
       <section>
         Build <strong>your Form</strong> here
       </section>

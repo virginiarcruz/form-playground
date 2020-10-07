@@ -1,6 +1,6 @@
 import React, { useState, InputHTMLAttributes, useCallback } from 'react';
 import { useMutation } from '@apollo/client';
-import { SAVE_COMMENT } from '../../graphql';
+import { SAVE_COMMENT, GET_COMMENTS } from '../../graphql';
 import DayPicker from 'react-day-picker';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 
@@ -16,7 +16,7 @@ import {
   TextArea,
 } from './styled';
 
-const Form: React.FC = () => {
+const Form: React.FC = ({ ...rest }) => {
   const [name, setName] = useState<string>('');
   const [content, setContent] = useState<string>('');
 
@@ -27,6 +27,11 @@ const Form: React.FC = () => {
         content,
       },
     },
+    refetchQueries: [
+      {
+        query: GET_COMMENTS,
+      },
+    ],
   });
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -37,7 +42,7 @@ const Form: React.FC = () => {
   }
 
   return (
-    <Container>
+    <Container {...rest}>
       <FormContainer onSubmit={handleSubmit}>
         <FormGroup>
           <Label>Your name</Label>
