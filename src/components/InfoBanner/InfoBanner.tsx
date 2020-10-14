@@ -2,13 +2,20 @@ import React from 'react';
 
 import { Container } from './styled';
 
-const InfoBanner: React.FC = ({ children, ...rest }) => {
+interface InfoBannerProps {
+  publicFormSettings: {
+    organizationName: string;
+    title: string;
+  };
+}
+
+const InfoBanner: React.FC<InfoBannerProps> = ({
+  publicFormSettings: { organizationName, title },
+}) => {
   return (
-    <Container {...rest}>
-      <section>
-        Build <strong>your Form</strong> here
-      </section>
-      {children}
+    <Container>
+      <h1> {organizationName} </h1>
+      <h2> {title} </h2>
     </Container>
   );
 };

@@ -1,48 +1,20 @@
 import React from 'react';
-import { useQuery, useMutation } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 
-import InfoBanner from '../../components/InfoBanner';
-import Form from '../../components/Form';
-import { GET_COMMENTS } from '../../graphql';
+import PageContainer from '../../containers/PageContainer';
+import { Title } from './styled';
+import { GET_FORMDATA } from '../../graphql';
 
-import { Container, Title } from './styled';
-
-interface CommentsProps {
-  id?: number;
-  name?: string;
-  content?: string;
-}
-
-const Home: React.FC<CommentsProps> = () => {
-  const { loading, error, data } = useQuery(GET_COMMENTS);
+const Home: React.FC = () => {
+  const { loading, error, data } = useQuery(GET_FORMDATA);
 
   if (error) return <>Algo deu errado aqui!</>;
 
-  /* eslint-disable */
+  console.log('data', data);
   return (
     <>
       <Title> Form Playground </Title>
-      <Container>
-        <InfoBanner>
-          {
-            loading
-              ? 'Loading...'
-              : data &&
-                data.comments.map(({ id, name, content }: CommentsProps) => {
-                  return (
-                    <ul>
-                      <li key={id}>
-                        {name}
-                        {content}
-                      </li>
-                    </ul>
-                  );
-                })
-            /* eslint-enable */
-          }
-        </InfoBanner>
-        <Form />
-      </Container>
+      {loading ? 'Loading...' : <PageContainer data={data.publicForm} />}
     </>
   );
 };
