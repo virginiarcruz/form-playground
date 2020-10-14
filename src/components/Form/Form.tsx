@@ -1,74 +1,50 @@
-import React, { useState } from 'react';
-import DayPicker from 'react-day-picker';
-import DayPickerInput from 'react-day-picker/DayPickerInput';
-
-import 'react-day-picker/lib/style.css';
+import React, { useState, InputHTMLAttributes, useCallback } from 'react';
 
 import Button from '../Button';
-import {
-  Container,
-  FormContainer,
-  FormGroup,
-  Label,
-  Input,
-  TextArea,
-} from './styled';
+import FormFields from '../../components/FormFields';
+import { Container, FormContainer, FormGroup } from './styled';
 
-const Form: React.FC = () => {
+interface FormProps {
+  formFields: Array<object>;
+}
+
+interface FieldsProps {
+  __typename?: string;
+  id?: string;
+  label?: string | any;
+  options?: Array<string> | undefined;
+}
+
+const Form: React.FC<FormProps> = ({ formFields }) => {
+  const [name, setName] = useState<string>('');
+  const [content, setContent] = useState<string>('');
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setName('');
+    setContent('');
+  };
+
+  const handleClick = useCallback(() => {
+    console.log('click');
+  }, []);
+
+  console.log('formfield', formFields);
+
   return (
     <Container>
-      <FormContainer>
-        <FormGroup>
-          <Label>Your name</Label>
-          <Input />
-        </FormGroup>
-        <FormGroup>
-          <Label>Your bio</Label>
-          <TextArea name="message" rows={8} />
-        </FormGroup>
-        <FormGroup>
-          <Label>Primary skill</Label>
-          <select name="select">
-            <option value="valor1">Valor 1</option>
-            <option value="valor2" selected>
-              Valor 2
-            </option>
-            <option value="valor3">Valor 3</option>
-          </select>
-        </FormGroup>
-        <FormGroup>
-          <Label>Your best javascript lib</Label>
-          <Input type="radio" />
-          <span>React</span>
-          <Input type="radio" />
-          <span>Vue</span>
-          <Input type="radio" />
-          <span>Svelte</span>
-        </FormGroup>
-        <FormGroup>
-          <Label>Addicional skill ++</Label>
-          <Input type="checkbox" />
-          <span>TDD</span>
-          <Input type="checkbox" />
-          <span>Storybook</span>
-          <Input type="checkbox" />
-          <span>Github</span>
-        </FormGroup>
-        <FormGroup>
-          <Label> Start Date</Label>
-          <DayPickerInput
-            dayPickerProps={{
-              month: new Date(),
-              showWeekNumbers: true,
-              todayButton: 'Today',
-            }}
+      <FormContainer onSubmit={handleSubmit}>
+        {formFields.map(({ __typename, id, label, options }: FieldsProps) => (
+          <FormFields
+            __typename={__typename}
+            id={id}
+            label={label}
+            options={options}
           />
-        </FormGroup>
+        ))}
+        <Button onClick={handleClick}>Submit</Button>
       </FormContainer>
-
-      <Button>Submit</Button>
     </Container>
   );
 };
-
 export default Form;
