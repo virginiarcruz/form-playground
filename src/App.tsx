@@ -12,7 +12,7 @@ interface AppContextInterface {
 
 const App: React.FC = () => {
   const sampleAppContext: AppContextInterface = {
-    name: "Using React Context in a Typescript App",
+    name: "Testing contexto with CRA",
     author: "thehappybug",
     url: "http://www.example.com",
   };
