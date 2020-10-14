@@ -1,5 +1,11 @@
 import { createContext } from 'react'
 
-const AppContext = createContext(["data", () => {}]);
+interface AppContextInterface {
+  name: string;
+  author: string;
+  url: string;
+}
+
+const AppContext = createContext<AppContextInterface | null>(null);;
 
 export default AppContext;
