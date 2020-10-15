@@ -1,24 +1,16 @@
 import React, { useState } from 'react';
 import Home from './pages/Home';
-import AppContext from './context/AppContext'
+import AppContext, { AppContextInterface } from './context/AppContext';
 
 import GlobalStyle from './styles/global';
 
-interface AppContextInterface {
-  name: string;
-  author: string;
-  url: string;
-}
+export const configValue: AppContextInterface = {
+  loading: true,
+};
 
-const App: React.FC = () => {
-  const sampleAppContext: AppContextInterface = {
-    name: "Testing contexto with CRA",
-    author: "thehappybug",
-    url: "http://www.example.com",
-  };
-
+const App: React.FC<AppContextInterface> = () => {
   return (
-    <AppContext.Provider value={sampleAppContext}>
+    <AppContext.Provider value={configValue}>
       <Home />
       <GlobalStyle />
     </AppContext.Provider>

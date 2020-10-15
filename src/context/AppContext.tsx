@@ -1,11 +1,9 @@
-import { createContext } from 'react'
+import { createContext } from 'react';
 
-interface AppContextInterface {
-  name: string;
-  author: string;
-  url: string;
+export interface AppContextInterface {
+  loading?: boolean;
 }
 
-const AppContext = createContext<AppContextInterface | null>(null);;
+const AppContext = createContext<AppContextInterface>({});
 
 export default AppContext;
