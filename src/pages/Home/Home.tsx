@@ -3,9 +3,7 @@ import { useQuery } from '@apollo/client';
 
 import PageContainer from '../../containers/PageContainer';
 import { Title } from './styled';
-import { GET_FORMDATA } from '../../graphql';
 import AppContext from '../../context/AppContext';
-import { AppContextInterface } from '../../interfaces/PublicForm';
 
 const Home: React.FC = () => {
   const context = useContext(AppContext);

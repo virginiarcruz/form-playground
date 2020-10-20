@@ -1,7 +1,6 @@
 import React from 'react';
 import InfoBanner from '../../components/InfoBanner';
 import Form from '../../components/Form';
-import { AppContextInterface } from '../../interfaces/PublicForm';
 
 import { Container } from './styled';
 
