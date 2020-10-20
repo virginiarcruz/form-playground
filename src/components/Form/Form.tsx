@@ -36,6 +36,7 @@ const Form: React.FC<FormProps> = ({ formFields }) => {
       <FormContainer onSubmit={handleSubmit}>
         {formFields.map(({ __typename, id, label, options }: FieldsProps) => (
           <FormFields
+            key={id}
             __typename={__typename}
             id={id}
             label={label}

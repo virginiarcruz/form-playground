@@ -5,17 +5,16 @@ import Form from '../../components/Form';
 import { Container } from './styled';
 
 interface PageProps {
-  data: {
-    publicFormSettings: {
-      organizationName: string;
-      title: string;
-    };
-    formFields: Array<object>;
-  };
+  publicForm:
+    | {
+        publicFormSettings: object | any;
+        formFields: Array<object>;
+      }
+    | any;
 }
 
 const PageContainer: React.FC<PageProps> = ({
-  data: { publicFormSettings, formFields },
+  publicForm: { publicFormSettings, formFields },
 }) => {
   return (
     <Container>

@@ -1,11 +1,6 @@
-import { createContext } from 'react'
+import { createContext } from 'react';
+import { AppContextInterface } from '../interfaces/PublicForm';
 
-interface AppContextInterface {
-  name: string;
-  author: string;
-  url: string;
-}
-
-const AppContext = createContext<AppContextInterface | null>(null);;
+const AppContext = createContext<AppContextInterface>({});
 
 export default AppContext;
