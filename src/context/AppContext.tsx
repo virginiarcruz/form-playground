@@ -1,8 +1,5 @@
 import { createContext } from 'react';
-
-export interface AppContextInterface {
-  loading?: boolean;
-}
+import { AppContextInterface } from '../interfaces/PublicForm';
 
 const AppContext = createContext<AppContextInterface>({});
 
